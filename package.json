@@ -1,0 +1,14 @@
+{
+  "name": "favor-circle",
+  "version": "1.0.0",
+  "private": true,
+  "description": "A MERN app for coordinating favors inside private groups.",
+  "scripts": {
+    "dev": "concurrently \"npm run dev --prefix backend\" \"npm run dev --prefix frontend\"",
+    "start": "npm run start --prefix backend",
+    "build": "npm run build --prefix frontend"
+  },
+  "devDependencies": {
+    "concurrently": "^9.1.2"
+  }
+}
