@@ -7,14 +7,20 @@ import groupRoutes from "./routes/groupRoutes.js";
 import requireAuth from "./middleware/requireAuth.js";
 
 const app = express();
-const allowedOrigins = (process.env.CLIENT_ORIGIN || "http://localhost:5173")
-  .split(",")
-  .map((origin) => origin.trim().replace(/\/$/, ""));
+const allowedOrigins = new Set(
+  [
+    "http://localhost:5173",
+    "https://favor-chi.vercel.app",
+    ...(process.env.CLIENT_ORIGIN || "").split(","),
+  ]
+    .map((origin) => origin.trim().replace(/\/$/, ""))
+    .filter(Boolean)
+);
 
 app.use(
   cors({
     origin(origin, callback) {
-      if (!origin || allowedOrigins.includes(origin.replace(/\/$/, ""))) {
+      if (!origin || allowedOrigins.has(origin.replace(/\/$/, ""))) {
         return callback(null, true);
       }
       return callback(new Error("Origin is not allowed by CORS."));
