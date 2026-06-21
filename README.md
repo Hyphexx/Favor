@@ -16,6 +16,23 @@ three step status.
 The frontend runs at `http://localhost:5173` and the API at
 `http://localhost:5000`.
 
+## Deploy the backend to Railway
+
+1. Create a Railway service from this GitHub repository.
+2. Set the service root directory to `/backend`.
+3. Set the config file path to `/backend/railway.toml`.
+4. Add these service variables:
+   - `MONGO_URI`: your MongoDB connection string.
+   - `JWT_SECRET`: a long random secret used to sign login tokens.
+   - `CLIENT_ORIGIN`: the deployed frontend origin, without a trailing slash.
+     Separate multiple allowed origins with commas.
+5. Generate a public Railway domain for the service.
+6. Set the frontend's `VITE_API_URL` to `https://your-domain.up.railway.app/api`
+   and rebuild the frontend.
+
+Railway supplies `PORT` automatically. The deployment health check uses
+`/health`.
+
 ## Permissions
 
 - Any member can post or pick up a favor in their group.
